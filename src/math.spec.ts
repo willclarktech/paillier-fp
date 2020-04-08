@@ -1,4 +1,25 @@
-import { calculateMu, calculateN, createL, gcd, lcm } from "./math";
+import {
+	calculateMu,
+	calculateN,
+	createL,
+	gcd,
+	getBitLength,
+	lcm,
+} from "./math";
+
+describe("getBitLength", () => {
+	test.each([
+		[0n, 1],
+		[1n, 1],
+		[2n, 2],
+		[3n, 2],
+		[15n, 4],
+		[16n, 5],
+	])("calculates bit length for %d = %d", (a, expected) => {
+		const actual = getBitLength(a);
+		expect(actual).toStrictEqual(expected);
+	});
+});
 
 describe("calculateN", () => {
 	test("calculates n", () => {
