@@ -20,5 +20,7 @@
 		"test": "echo 'no test script' && exit 1"
 	},
 	"dependencies": {},
-	"devDependencies": {}
+	"devDependencies": {
+		"typescript": "^3.8.3"
+	}
 }
