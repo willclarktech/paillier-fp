@@ -17,6 +17,7 @@
 	"homepage": "https://github.com/willclarktech/paillier-fp#readme",
 	"main": "dist/index.js",
 	"scripts": {
+		"build": "tsc",
 		"test": "jest"
 	},
 	"dependencies": {},
