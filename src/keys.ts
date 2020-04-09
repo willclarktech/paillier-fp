@@ -51,17 +51,3 @@ export const generateKeysSync = (bitLength = 3072): KeyPair => {
 	const g = generateGenerator(n);
 	return getKeys(p, q, n, g);
 };
-
-export const encrypt = ({ g, n, n2 }: PublicKey) => (
-	plainText: bigint,
-): bigint => {
-	const r = randBetween(n);
-	return (modPow(g, plainText, n2) * modPow(r, n, n2)) % n2;
-};
-
-export const decrypt = ({ priv: { lambda, mu }, pub: { n, n2 } }: KeyPair) => (
-	cipherText: bigint,
-): bigint => {
-	const L = createL(n);
-	return (L(modPow(cipherText, lambda, n2)) * mu) % n;
-};

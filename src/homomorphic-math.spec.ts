@@ -1,4 +1,5 @@
-import { decrypt, encrypt, generateKeysSync } from "./keys";
+import { decrypt, encrypt } from "./encryption";
+import { generateKeysSync } from "./keys";
 import { add, multiply } from "./homomorphic-math";
 
 describe("add", () => {
