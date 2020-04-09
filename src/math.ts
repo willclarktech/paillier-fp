@@ -13,7 +13,12 @@ export const calculateLambda = (p: bigint, q: bigint): bigint =>
 
 export const createL = (n: bigint) => (x: bigint): bigint => (x - 1n) / n;
 
-export const calculateMu = (g: bigint, lambda: bigint, n: bigint): bigint => {
+export const calculateMu = (
+	g: bigint,
+	lambda: bigint,
+	n: bigint,
+	n2 = n ** 2n,
+): bigint => {
 	const L = createL(n);
-	return (1n / L(modPow(g, lambda, n ** 2n))) % n;
+	return (1n / L(modPow(g, lambda, n2))) % n;
 };
