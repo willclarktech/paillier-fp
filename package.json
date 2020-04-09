@@ -15,7 +15,7 @@
 		"url": "https://github.com/willclarktech/paillier-fp/issues"
 	},
 	"homepage": "https://github.com/willclarktech/paillier-fp#readme",
-	"main": "dist/index.js",
+	"main": "build/index.js",
 	"scripts": {
 		"prebuild": "rm -rf ./build",
 		"build": "tsc",
