@@ -1,5 +1,5 @@
 import { modPow, primeSync, randBetween } from "bigint-crypto-utils";
-import { calculateLambda, calculateMu, getBitLength } from "./math";
+import { calculateLambda, calculateMu, createL, getBitLength } from "./math";
 
 export type PublicKey = {
 	readonly n: bigint;
@@ -48,4 +48,18 @@ export const generateKeysSync = (bitLength = 3072): KeyPair => {
 
 	const g = generateGenerator(n);
 	return getKeys(p, q, n, g);
+};
+
+export const encrypt = ({ g, n }: PublicKey) => (plainText: bigint): bigint => {
+	const r = randBetween(n);
+	const n2 = n ** 2n;
+	return (modPow(g, plainText, n2) * modPow(r, n, n2)) % n2;
+};
+
+export const decrypt = ({ priv: { lambda, mu }, pub: { n } }: KeyPair) => (
+	cipherText: bigint,
+): bigint => {
+	const n2 = n ** 2n;
+	const L = createL(n);
+	return (L(modPow(cipherText, lambda, n2)) * (mu % n)) % n;
 };
