@@ -63,5 +63,5 @@ export const decrypt = ({ priv: { lambda, mu }, pub: { n, n2 } }: KeyPair) => (
 	cipherText: bigint,
 ): bigint => {
 	const L = createL(n);
-	return (L(modPow(cipherText, lambda, n2)) * (mu % n)) % n;
+	return (L(modPow(cipherText, lambda, n2)) * mu) % n;
 };
