@@ -1,3 +1,5 @@
+import { modPow } from "bigint-crypto-utils";
+
 export const getBitLength = (a: bigint): number =>
 	[0n, 1n].includes(a) ? 1 : 1 + getBitLength(a >> 1n);
 
@@ -9,11 +11,9 @@ export const lcm = (a: bigint, b: bigint): bigint => (a * b) / gcd(a, b);
 export const calculateLambda = (p: bigint, q: bigint): bigint =>
 	lcm(p - 1n, q - 1n);
 
-export const calculateN = (p: bigint, q: bigint): bigint => p * q;
-
 export const createL = (n: bigint) => (x: bigint): bigint => (x - 1n) / n;
 
 export const calculateMu = (g: bigint, lambda: bigint, n: bigint): bigint => {
 	const L = createL(n);
-	return (1n / L(g ** lambda % n ** 2n)) % n;
+	return (1n / L(modPow(g, lambda, n ** 2n))) % n;
 };
