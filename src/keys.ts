@@ -1,5 +1,5 @@
 import { modPow, primeSync, randBetween } from "bigint-crypto-utils";
-import { calculateLambda, calculateMu, createL, getBitLength } from "./math";
+import { calculateLambda, calculateMu, getBitLength } from "./math";
 
 export type PublicKey = {
 	readonly n: bigint;
@@ -26,6 +26,11 @@ export const getKeys = (
 	const n2 = n ** 2n;
 	const lambda = calculateLambda(p, q);
 	const mu = calculateMu(g, lambda, n, n2);
+
+	if (!mu) {
+		throw new Error("mu does not exist");
+	}
+
 	const pub = { n, n2, g };
 	const priv = { lambda, mu };
 	return { pub, priv };
@@ -49,5 +54,12 @@ export const generateKeysSync = (bitLength = 3072): KeyPair => {
 	}
 
 	const g = generateGenerator(n);
-	return getKeys(p, q, n, g);
+	try {
+		return getKeys(p, q, n, g);
+	} catch (error) {
+		if (/mu does not exist/i.test(error)) {
+			return generateKeysSync(bitLength);
+		}
+		throw error;
+	}
 };
