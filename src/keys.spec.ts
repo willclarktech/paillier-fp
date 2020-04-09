@@ -35,6 +35,7 @@ describe("generateKeysSync", () => {
 		const keys = generateKeysSync();
 		expect(keys.priv).toHaveProperty("lambda");
 		expect(keys.priv).toHaveProperty("mu");
+		expect(keys.priv.mu).not.toStrictEqual(0n);
 	});
 
 	test("generates distinct keys", () => {
